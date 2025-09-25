@@ -122,7 +122,7 @@ public class GenerateTerrain : MonoBehaviour
         {
             CountOutput.text = $"Buildings Spawned: {allObjects.Count}";
         }
-        
+
         DurationOutput.text = $"Generation Time: {stopwatch.ElapsedMilliseconds} ms";
     }
 
@@ -229,9 +229,10 @@ public class GenerateTerrain : MonoBehaviour
             {
                 //Generate a random positon to spawn at within the area range
                 Vector3Int pos = new(Random.Range(-scaledArea.x/2, scaledArea.x/2), 0, Random.Range(-scaledArea.y/2, scaledArea.y/2));
-                
+                Vector3Int arrPos = new(pos.x + scaledArea.x / 2, 0, pos.z + scaledArea.y / 2);
+
                 //Check if we meet minDistance requirement, if fail increase the fail count
-                if (!SpawnCheck(pos, spawnPoints)) { failCount++; continue; }
+                if (!SpawnCheck(arrPos, spawnPoints)) { failCount++; continue; }
                 else
                 {
                     failCount = 0;
@@ -239,7 +240,7 @@ public class GenerateTerrain : MonoBehaviour
                     {
                         //Decrease the total and mark that point as true on the grid
                         total++;
-                        spawnPoints[pos.x + scaledArea.x/2, pos.z + scaledArea.y/2] = true;
+                        spawnPoints[arrPos.x, arrPos.z] = true;
                         
                         //Spawn at this point
                         allObjects.Add(

@@ -11,14 +11,15 @@ public class UIHandler : MonoBehaviour
     public GenerateTerrain Generator;
     public TMP_Dropdown genDropdown;
     public TMP_InputField[] fields;
+    public GameObject[] BatchGen;
     public Slider probSlider;
     public TMP_InputField probField;
-    public GameObject BatchGen;
     public GameObject RandSettings;
     public GameObject Settings;
     public GameObject SettingsButton;
     public GameObject ViewGenButton;
     public GameObject Background;
+    public GameObject BatchSizeSetting;
 
     private bool batchOn;
 
@@ -44,11 +45,17 @@ public class UIHandler : MonoBehaviour
     {
         if (genDropdown.value == 3)
         {
-            BatchGen.SetActive(true);
+            foreach (GameObject setting in BatchGen)
+            {
+                setting.SetActive(true);
+            }
         }
         else
         {
-            BatchGen.SetActive(false);
+            foreach (GameObject setting in BatchGen)
+            {
+                setting.SetActive(false);
+            }
         }
 
         if (genDropdown.value == 2)
@@ -83,6 +90,7 @@ public class UIHandler : MonoBehaviour
     public void BatchOptions(TMP_Dropdown batchDropdown)
     {
         batchOn = (batchDropdown.value == 1);
+        BatchSizeSetting.SetActive(batchOn);
     }
     public void ToggleGenerateSettings()
     {
